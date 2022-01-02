@@ -53,6 +53,8 @@ class SpecialDataAccountingConfig extends SpecialPage {
 			throw new PermissionsError( 'import' );
 		}
 
+		$this->getOutput()->setPageTitle( 'Data Accounting Configuration' );
+
 		$out = "<i>Configuration for the MediaWiki - Data Accounting Extension</i><hr>";
 
 		$out .= "<h2>Software Info</h2>";
@@ -64,14 +66,20 @@ class SpecialDataAccountingConfig extends SpecialPage {
 		$out .= "<hr><h2>Signature</h2>";
 		$out .= "<i>Configure behavior of Signature</i>";
 		$out .= "<br><i>Content Signature adds a visible signature into the page content and write a new revision when signing a page with your wallet.</i>";
-		$out .= "<br><b>Content Signature:</b> I'M a CHECKBOX";
+		$this->getOutput()->addWikiTextAsInterface( $out );
+		$signatureFormDescriptor = [
+			'InjectSignature' => [
+				'label' => 'Content Signature:',
+				'class' => 'HTMLCheckField',
+				'default' => $this->getConfig()->get( 'InjectSignature' ),
+			]
+		];
+		$this->prepareHtmlForm($signatureFormDescriptor, 'signatureForm' );
 
-		$out .=	"<hr><h2> Witness Configuration </h2>";
+		$out =	"<hr><h2> Witness Configuration </h2>";
 		$out .= "<i>Configure Witness Network and Smart-Contract-Address for [[Special:WitnessPublisher| Domain Manifest Publisher]]";
 		$out .= "<br><i>Ensure you're generating a [[Special:Witness| Domain Manifest]] before publishing.";
-
 		$this->getOutput()->addWikiTextAsInterface( $out );
-		$this->getOutput()->setPageTitle( 'Data Accounting Configuration' );
 
 		$witnessNetworks = [
 			'mainnet' => 'mainnet',
