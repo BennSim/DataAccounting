@@ -94,8 +94,11 @@ class SpecialDataAccountingConfig extends SpecialPage {
 				'options' => $witnessNetworks,
 			],
 		];
+		$this->prepareHtmlForm($formDescriptor, 'witnessForm' );
+	}
 
-		$htmlForm = new HTMLForm( $formDescriptor, $this->getContext(), 'daForm' );
+	private function prepareHtmlForm( $formDescriptor, $formName ) {
+		$htmlForm = new HTMLForm( $formDescriptor, $this->getContext(), $formName );
 		$htmlForm->setSubmitText( 'Save' );
 		$htmlForm->setSubmitCallback( function( array $formData ) {
 			$res = $this->save( $formData );
