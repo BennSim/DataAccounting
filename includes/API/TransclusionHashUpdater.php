@@ -10,6 +10,7 @@ use MediaWiki\Revision\RevisionStore;
 use RequestContext;
 use Title;
 use TitleFactory;
+use User;
 use Wikimedia\ParamValidator\ParamValidator;
 
 class TransclusionHashUpdater extends SimpleHandler {
@@ -21,6 +22,7 @@ class TransclusionHashUpdater extends SimpleHandler {
 	private TitleFactory $titleFactory;
 	/** @var RevisionStore  */
 	private RevisionStore $revisionStore;
+	private User $user;
 
 	/**
 	 * @param TransclusionManager $transclusionManager
